@@ -1,6 +1,7 @@
 """."""
 from client import Client
-
+from io import BytesIO
+import base64
 import matplotlib.pyplot as p
 import datetime
 import pandas
@@ -37,7 +38,7 @@ class Data(object):
         """."""
         today = datetime.datetime.today().date()
 
-        first = today - datetime.timedelta(days=10)
+        first = today - datetime.timedelta(days=5)
 
         data = self._client.country(
             country,
@@ -51,13 +52,13 @@ class Data(object):
 
         p.title("Confirmed Cases")
 
-        p.show()
+        return self.converter(p_img=p)
 
     def deaths(self, country):
         """."""
         today = datetime.datetime.today().date()
 
-        first = today - datetime.timedelta(days=10)
+        first = today - datetime.timedelta(days=5)
 
         data = self._client.country(
             country,
@@ -71,13 +72,13 @@ class Data(object):
 
         p.title("Deaths")
 
-        p.show()
+        return self.converter(p_img=p)
 
     def recovered(self, country):
         """."""
         today = datetime.datetime.today().date()
 
-        first = today - datetime.timedelta(days=10)
+        first = today - datetime.timedelta(days=5)
 
         data = self._client.country(
             country,
@@ -91,7 +92,7 @@ class Data(object):
 
         p.title("Recovered")
 
-        p.show()
+        return self.converter(p_img=p)
 
     def countries_to_df(self, columns=[], head=10):
         """."""
@@ -121,7 +122,7 @@ class Data(object):
 
         p.ylabel("Total Confirmed (millions)")
 
-        p.show()
+        return self.converter(p_img=p)
 
     def countries_deaths(self):
         """."""
@@ -139,7 +140,7 @@ class Data(object):
 
         p.ylabel("Total deaths")
 
-        p.show()
+        return self.converter(p_img=p)
 
     def countries_recovered(self):
         """."""
@@ -157,8 +158,12 @@ class Data(object):
 
         p.ylabel("Total recovered")
 
-        p.show()
+        return self.converter(p_img=p)
 
-d = Data()
-
-d.countries_deaths()
+    def converter(self, p_img):
+        """."""
+        figfile = BytesIO()
+        p_img.savefig(figfile, format='png')
+        figfile.seek(0)
+        figdata_png = base64.b64encode(figfile.getvalue())
+        return figdata_png.decode('utf8')
