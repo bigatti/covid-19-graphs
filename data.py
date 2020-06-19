@@ -167,3 +167,11 @@ class Data(object):
         figfile.seek(0)
         figdata_png = base64.b64encode(figfile.getvalue())
         return figdata_png.decode('utf8')
+
+    def convert_json(self, img_base):
+        """."""
+        return json.dumps(
+            {
+                "base64": img_base
+            }
+        )

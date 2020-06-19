@@ -20,35 +20,60 @@ def hello():
 def confirmed(country):
 	d = Data()
 	figdata_png = d.confirmed(country=country)
-	return figdata_png
+	json = d.convert_json(img_base=figdata_png)
+	return app.response_class(
+        response=json,
+        status=200,
+        mimetype='application/json'
+    )
 
 
 @app.route('/deaths/<country>')
 def deaths(country):
 	d = Data()
 	figdata_png = d.deaths(country=country)
-	return figdata_png
+	json = d.convert_json(img_base=figdata_png)
+	return app.response_class(
+        response=json,
+        status=200,
+        mimetype='application/json'
+    )
 
 
 @app.route('/recovered/<country>')
 def recovered(country):
 	d = Data()
 	figdata_png = d.recovered(country=country)
-	return figdata_png
+	json = d.convert_json(img_base=figdata_png)
+	return app.response_class(
+        response=json,
+        status=200,
+        mimetype='application/json'
+    )
 
 
 @app.route('/countries_confirmed')
 def countries_confirmed():
 	d = Data()
 	figdata_png = d.countries_confirmed()
-	return figdata_png
+	json = d.convert_json(img_base=figdata_png)
+	return app.response_class(
+        response=json,
+        status=200,
+        mimetype='application/json'
+    )
 
 
 @app.route('/countries_recovered')
 def countries_recovered():
 	d = Data()
 	figdata_png = d.countries_recovered()
-	return figdata_png
+	json = d.convert_json(img_base=figdata_png)
+	return app.response_class(
+        response=json,
+        status=200,
+        mimetype='application/json'
+    )
 
 
 
