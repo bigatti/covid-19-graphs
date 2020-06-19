@@ -36,8 +36,9 @@ class Data(object):
 
     def confirmed(self, country):
         """."""
+        self.p_empty()
         today = datetime.datetime.today().date()
-
+        
         first = today - datetime.timedelta(days=5)
 
         data = self._client.country(
@@ -56,11 +57,11 @@ class Data(object):
 
     def deaths(self, country):
         """."""
+        self.p_empty()
         today = datetime.datetime.today().date()
 
         first = today - datetime.timedelta(days=5)
-        p.cla()
-        p.clf()
+
         data = self._client.country(
             country,
             "deaths",
@@ -77,6 +78,7 @@ class Data(object):
 
     def recovered(self, country):
         """."""
+        self.p_empty()
         today = datetime.datetime.today().date()
 
         first = today - datetime.timedelta(days=5)
@@ -109,6 +111,7 @@ class Data(object):
 
     def countries_confirmed(self):
         """."""
+        self.p_empty()
         data = self.countries_to_df(["TotalConfirmed"])
 
         data = data[["CountryCode", "TotalConfirmed"]].copy()
@@ -127,6 +130,7 @@ class Data(object):
 
     def countries_deaths(self):
         """."""
+        self.p_empty()
         data = self.countries_to_df(["TotalDeaths"])
 
         data = data[["CountryCode", "TotalDeaths"]].copy()
@@ -145,6 +149,7 @@ class Data(object):
 
     def countries_recovered(self):
         """."""
+        self.p_empty()
         data = self.countries_to_df(["TotalRecovered"])
 
         data = data[["CountryCode", "TotalRecovered"]].copy()
@@ -176,3 +181,8 @@ class Data(object):
                 "base64": img_base
             }
         )
+
+    def p_empty(self):
+        """"."""
+        p.cla()
+        p.clf()
