@@ -59,7 +59,8 @@ class Data(object):
         today = datetime.datetime.today().date()
 
         first = today - datetime.timedelta(days=5)
-
+        p.cla()
+        p.clf()
         data = self._client.country(
             country,
             "deaths",
